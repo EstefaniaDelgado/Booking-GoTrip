@@ -15,7 +15,14 @@ module.exports = withMT({
         'platinum-two': '#D9D9D9',
         'cadet-gray': '#81929E',
         'indigo-dye': '#284B63',
-        sky: '#35A6B8',
+        sky: '#3d91ff',
+      },
+      backgroundImage: {
+        hero: "url('../src/assets/sky.jpg')",
+        tablet:"url('../src/assets/tablet.svg')",
+      },
+      screens: {
+        'custom': '425px', // Define un breakpoint a 850px
       },
     },
   },

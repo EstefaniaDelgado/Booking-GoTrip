@@ -47,8 +47,8 @@ const Body = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-200">
-      <section className="relative w-full bg-cover bg-center">
+    <div className="">
+      <section className="relative">
         <Header />
       </section>
 

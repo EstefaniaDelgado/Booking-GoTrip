@@ -1,18 +1,18 @@
-import fotoFondo from "../assets/imagenBG.jpg";
-import iconSearch from "../assets/search.svg";
-import iconCalendar from "../assets/calendar.svg";
-import { useState, useEffect, useRef } from "react";
-import { useNavigate } from "react-router-dom";
-import { DateRange } from "react-date-range";
-import "react-date-range/dist/styles.css";
-import "react-date-range/dist/theme/default.css";
-import { format } from "date-fns";
-import { useContext } from "react";
-import { EventContext } from "../context/ProductContext";
+import { useState, useEffect, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { DateRange } from 'react-date-range';
+import 'react-date-range/dist/styles.css';
+import 'react-date-range/dist/theme/default.css';
+import { format } from 'date-fns';
+import { useContext } from 'react';
+import { EventContext } from '../context/ProductContext';
+import { IoSearch } from 'react-icons/io5';
+import { FaRegCalendarAlt } from "react-icons/fa";
+import Plane from '../assets/plane.png';
 
 const Header = () => {
   const [categories, setCategories] = useState([]);
-  const [destination, setDestination] = useState("");
+  const [destination, setDestination] = useState('');
   const [suggestions, setSuggestions] = useState([]);
   const navigate = useNavigate();
   const { events, fetchEvents } = useContext(EventContext);
@@ -28,9 +28,9 @@ const Header = () => {
   }, []);
 
   const truncateDescription = (description, wordLimit = 9) => {
-    const words = description.split(" ");
+    const words = description.split(' ');
     if (words.length > wordLimit) {
-      return words.slice(0, wordLimit).join(" ") + "...";
+      return words.slice(0, wordLimit).join(' ') + '...';
     }
     return description;
   };
@@ -41,7 +41,7 @@ const Header = () => {
       .then((data) => {
         setCategories(data);
       })
-      .catch((error) => console.error("Error obteniendo categorías:", error));
+      .catch((error) => console.error('Error obteniendo categorías:', error));
   }, []);
 
   const [showCalendar, setShowCalendar] = useState(false);
@@ -49,28 +49,28 @@ const Header = () => {
     {
       startDate: null,
       endDate: null,
-      key: "selection",
+      key: 'selection',
     },
   ]);
 
   const [calendarConfig, setCalendarConfig] = useState({
     months: 2,
-    direction: "horizontal",
+    direction: 'horizontal',
   });
 
   useEffect(() => {
     const updateCalendarConfig = () => {
       if (window.innerWidth < 1024) {
-        setCalendarConfig({ months: 2, direction: "vertical" });
+        setCalendarConfig({ months: 2, direction: 'vertical' });
       } else {
-        setCalendarConfig({ months: 2, direction: "horizontal" });
+        setCalendarConfig({ months: 2, direction: 'horizontal' });
       }
     };
 
     updateCalendarConfig();
-    window.addEventListener("resize", updateCalendarConfig);
+    window.addEventListener('resize', updateCalendarConfig);
 
-    return () => window.removeEventListener("resize", updateCalendarConfig);
+    return () => window.removeEventListener('resize', updateCalendarConfig);
   }, []);
 
   const handleSearchChange = (e) => {
@@ -93,8 +93,8 @@ const Header = () => {
     if (dateRange[0].startDate && dateRange[0].endDate) {
       query += `&startDate=${format(
         dateRange[0].startDate,
-        "yyyy-MM-dd"
-      )}&endDate=${format(dateRange[0].endDate, "yyyy-MM-dd")}`;
+        'yyyy-MM-dd'
+      )}&endDate=${format(dateRange[0].endDate, 'yyyy-MM-dd')}`;
     }
     navigate(`/category${query}`);
   };
@@ -115,51 +115,41 @@ const Header = () => {
       }
     };
 
-    document.addEventListener("mousedown", handleClickOutside);
+    document.addEventListener('mousedown', handleClickOutside);
 
     return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener('mousedown', handleClickOutside);
     };
   }, []);
 
   return (
     <section
-      // className="relative min-h-[400px] md:h-[400px] w-full bg-cover bg-center"
-       className="relative min-h-[400px] md:h-[400px] lg:h-screen w-full bg-cover bg-center"
-      style={{
-        backgroundImage: `url(${fotoFondo})`,
-        backgroundPosition: "50% 65%",
-      }}
+      className="min-h-screen bg-hero bg-no-repeat bg-cover md:py-5 bg-center"
     >
-      <div className="absolute inset-0 bg-black/20" />
-
-      <div className="relative h-full w-4/5 mx-auto px-4">
-        <div className="h-full flex flex-col items-center justify-center space-y-8 p-2 md:p-4">
+    <div className='relative z-30 mx-auto md:h-screen md:flex max-w-screen-2xl'>
+    <img src={Plane} alt="plane" className='absolute left-1/2 transform -translate-x-1/2 h-[400px] -z-10 md:right-0 md:transform-none md:h-[530px] xl:h-[600px]' />
+      <div className="py-8 md:px-10 lg:px-20 flex flex-col items-center justify-center md:items-start gap-4 md:p-4">
           {/* Caja del título */}
-          <div className="bg-white rounded-lg px-6 py-4 shadow-lg mt-8 md:mt-0 w-full max-w-4xl">
-            <h1 className="text-xl md:text-2xl text-[#3C6E71] font-medium text-left cursor-default">
+          <div className="space-y-2 tracking-wide px-6 md:px-0 text-black w-full ">
+            <h1 className="text-4xl text-center capitalize font-semibold md:text-left md:text-6xl xl:text-8xl md:w-11/12 ">
               Descubre tu próxima aventura
             </h1>
-            <h2 className="text-lg md:text-xl text-[#3C6E71] font-medium text-left cursor-default">
+            <h2 className="text-lg text-center md:text-xl  font-normal md:text-left">
               Encuentra las mejores ofertas en tours, excursiones y más...
             </h2>
           </div>
 
           {/* Contenedor con buscador, calendario y categorías */}
-          <div className="w-full max-w-4xl flex flex-col md:flex-row gap-4">
+          <div className="flex flex-col gap-3">
             {/* Buscador */}
-            <div className="flex-1 bg-[#3C6E71] text-white rounded-lg shadow-lg flex items-center p-2 px-3 min-h-[48px] hover:bg-[#2C4F53]">
-              <img
-                src={iconSearch}
-                alt="Icono de búsqueda"
-                className="mr-2 w-5 h-5"
-              />
+            <div className="bg-white md:w-full mx-auto md:mx-auto text-black/70 rounded-lg shadow-lg flex items-center p-2 px-3 min-h-[48px] hover:border-gray-400 hover:border-2">
+              <IoSearch className="text-xl text-gray-700" />
               <input
                 type="text"
                 placeholder="Nombre del evento..."
                 value={destination}
                 onChange={handleSearchChange}
-                className="flex-1 px-2 py-2 bg-transparent focus:outline-none text-white"
+                className="px-2 focus:outline-none placeholder:text-gray-400"
                 ref={inputRef}
               />
             </div>
@@ -167,7 +157,7 @@ const Header = () => {
             {/* Sugerencias del campo de búsqueda */}
             {destination && suggestions.length > 0 && (
               <div
-                className="absolute bg-[#3C6E71] border border-[#3C6E71] rounded-lg w-full max-w-md mt-[60px] shadow-lg z-10 bg-white text-gray-900"
+                className="absolute  border rounded-lg  mt-[60px] shadow-lg z-10 bg-white text-gray-900"
                 ref={suggestionsRef}
               >
                 <ul className="max-h-60 overflow-y-auto rounded-lg">
@@ -192,18 +182,15 @@ const Header = () => {
               </div>
             )}
 
-            {/* Calendario */}
-            <div className="relative flex-1" ref={calendarRef}>
+           <div className='w-full px-2 md:px-0 flex text-sm gap-3 '>
+             {/* Calendario */}
+             <div ref={calendarRef}>
               <button
                 onClick={() => setShowCalendar(!showCalendar)}
-                className="w-full h-full bg-[#3C6E71] text-white rounded-lg px-6 py-3 shadow-lg flex items-center justify-between hover:bg-[#2C4F53] transition-colors min-h-[48px] text-sm md:text-base"
+                className="w-full h-full bg-white text-gray-400 rounded-lg px-4 py-2 shadow-lg flex items-center  gap-3 transition-colors font-light "
               >
-                <img
-                  src={iconCalendar}
-                  alt="Icono de calendario"
-                  className="mr-2 w-5 h-5"
-                />
-                <span className="font-medium truncate max-w-[150px] sm:max-w-[200px] md:max-w-[250px] text-left">
+               <FaRegCalendarAlt className="text-2xl text-gray-700"/>
+                <span className="font-medium  text-left">
                   {dateRange[0].startDate && dateRange[0].endDate
                     ? `${format(
                         dateRange[0].startDate,
@@ -241,17 +228,18 @@ const Header = () => {
             </div>
 
             {/* Botón Buscar */}
-            <div className="flex items-center justify-center min-h-[48px]">
+            <div className="flex items-center justify-center">
               <button
                 onClick={handleSearch}
-                className="w-full md:w-auto bg-[#FF6D1B] text-white rounded-lg px-8 py-3 shadow-lg hover:bg-[#BF360C] transition-colors min-h-[48px] text-lg"
+                className="w-full md:w-auto bg-sky text-black rounded-3xl px-6 md:px-8 md:py-3 shadow-lg transition-colors min-h-[48px] md:text-lg font-semibold"
               >
                 Buscar
               </button>
             </div>
+           </div>
           </div>
         </div>
-      </div>
+    </div>
     </section>
   );
 };

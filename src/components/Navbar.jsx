@@ -42,7 +42,7 @@ const Navbar = () => {
   };
 
   return (
-    <header className="fixed top-0 left-0 w-full bg-[#3C6E71] z-50">
+    <header className="fixed top-0 py-3 bg-white left-0 w-full text-black z-50">
       <nav className="container mx-auto px-2 sm:px-1 py-2 flex justify-between items-center">
         <div className="flex items-center">
           <Link
@@ -50,17 +50,18 @@ const Navbar = () => {
             aria-label="Ir a la página principal"
             className="flex items-center space-x-3 hover:opacity-90 transition-opacity"
           >
-            <div className="w-20 h-20 rounded-full flex items-center justify-center overflow-hidden bg-white">
+            {/* Logo */}
+            {/* <div className="w-20 h-20 rounded-full flex items-center justify-center overflow-hidden bg-white">
               <img
                 src={logo}
                 alt="Logo"
                 className="w-full h-full object-cover"
               />
-            </div>
+            </div> */}
 
             <div className="hidden sm:block ml-3">
-              <h1 className="text-lg font-bold text-white">GO TRIP</h1>
-              <p className="text-sm text-gray-100">
+              <h1 className="text-lg font-bold ">GO TRIP</h1>
+              <p className="text-sm text-gray-900">
                 ¡Tu aventura comienza aquí!
               </p>
             </div>
@@ -130,16 +131,16 @@ const Navbar = () => {
             </div>
           </div>
         ) : (
-          <div className="flex items-center space-x-4">
+          <div className="flex items-center text-black md:text-lg">
             <Link
               to="/login"
-              className="px-4 py-2 text-white hover:text-gray-200 transition-colors duration-200"
+              className="px-2 md:px-4 py-2 font-semibold  hover:text-gray-200 transition-colors duration-200"
             >
               Iniciar Sesión
             </Link>
             <Link
               to="/register"
-              className="px-6 py-2 bg-[#45B5C4] text-white rounded-lg hover:bg-[#3da3b1] transition-colors duration-200"
+              className="px-3 text-sm md:px-6 md:text-lg py-2 bg-sky font-semibold  rounded-3xl hover:bg-[#3da3b1] transition-colors duration-200"
             >
               Regístrate
             </Link>

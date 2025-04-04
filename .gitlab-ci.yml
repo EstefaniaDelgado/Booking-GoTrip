@@ -1,0 +1,63 @@
+before_script:
+  - echo "********************"
+
+after_script:
+  - echo "********************"
+
+Build:
+  stage: build
+  before_script:
+    - dpkg -l | grep openssh-client
+    - mkdir -p ~/.ssh # Crea el directorio ~/.ssh/ si no existe
+    - echo "$AWS_ACCESS_KEY" > ~/.ssh/id_rsa # Guarda el contenido del .pem
+    - chmod 400 ~/.ssh/id_rsa # Establece los permisos correctos
+    
+  script:  
+    - cd ~/.ssh
+    - ssh -o StrictHostKeyChecking=no -i id_rsa ubuntu@$EC2_IP "
+        cd $REPOSITORY;
+        git pull origin main;
+        sudo systemctl daemon-reload;
+        sudo systemctl stop nginx;
+        sleep 5;
+        sudo systemctl status nginx;
+        lsof | grep $DEPLOY;
+        find /var/www/myapp -mindepth 1 -delete;
+        rsync -av $REPOSITORY/dist/ $DEPLOY;
+        exit;"
+
+  after_script:
+    - rm -rf ~/.ssh 
+    
+  only:
+    - main
+
+  tags:
+    - build
+
+Deployment:
+  stage: deploy
+
+  before_script:
+    - dpkg -l | grep openssh-client
+    - mkdir -p ~/.ssh # Crea el directorio ~/.ssh/ si no existe
+    - echo "$AWS_ACCESS_KEY" > ~/.ssh/id_rsa # Guarda el contenido del .pem
+    - chmod 400 ~/.ssh/id_rsa # Establece los permisos correctos
+  
+  script:  
+    - cd ~/.ssh
+    - ssh -o StrictHostKeyChecking=no -i id_rsa ubuntu@$EC2_IP "
+        sudo systemctl start nginx;
+        sudo systemctl status nginx;
+        exit;"
+
+  after_script:
+    - rm -rf ~/.ssh  
+    
+  only:
+    - main
+
+  tags:
+    - deploy
+
+

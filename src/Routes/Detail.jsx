@@ -1,32 +1,30 @@
-import { useParams, useNavigate } from "react-router-dom";
-import { useEffect, useState, useMemo, useContext } from "react";
-import Gallery from "../components/Gallery";
-import axios from "axios";
-import { EventContext } from "../context/ProductContext";
-import HeartFavorite from "../views/Home/components/HeartFavorite";
-import { getFavoritesProducts } from "../services/favoritesServie";
-import ShareProduct from "../views/ShareProduct";
-import { MdShare } from "react-icons/md";
+import { useParams, useNavigate } from 'react-router-dom';
+import { useEffect, useState, useContext } from 'react';
+import Gallery from '../components/Gallery';
+import axios from 'axios';
+import HeartFavorite from '../views/Home/components/HeartFavorite';
+import { getFavoritesProducts } from '../services/favoritesServie';
+import ShareProduct from '../views/ShareProduct';
+import { MdShare } from 'react-icons/md';
 
-import { DateRange } from "react-date-range";
-import "react-date-range/dist/styles.css";
-import "react-date-range/dist/theme/default.css";
-import { FaStar } from "react-icons/fa";
-import { Link } from "react-router-dom";
-import { IoArrowBackCircleOutline } from "react-icons/io5";
-import { DateRangeContext } from "../context/DateRangeContext";
-import { EVENT } from "../utils/constantsLocalSorage";
-import WhatsAppContactButton from "../views/Home/components/WhatsAppContactButton";
-import { getReviews } from "../services/reviewService";
+import { DateRange } from 'react-date-range';
+import 'react-date-range/dist/styles.css';
+import 'react-date-range/dist/theme/default.css';
+import { FaStar } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
+import { IoArrowBackCircleOutline } from 'react-icons/io5';
+import { DateRangeContext } from '../context/DateRangeContext';
+import { EVENT } from '../utils/constantsLocalSorage';
+import WhatsAppContactButton from '../views/Home/components/WhatsAppContactButton';
+import { getReviews } from '../services/reviewService';
 
 const Detail = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  //const { events } = useContext(EventContext);
   const [currentEvent, setCurrentEvent] = useState({
     id: null,
-    name: "",
-    description: "",
+    name: '',
+    description: '',
     price: null,
     images: [],
     categoryOutputDTO: null,
@@ -34,34 +32,36 @@ const Detail = () => {
     fechaInicio: new Date(),
     fechaFin: new Date(),
   });
-  const [features, setFeatures] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [showShareModal, setShowShareModal] = useState(false);
   const [showCalendar, setShowCalendar] = useState(false);
-  // const [dateRange, setDateRange] = useState([
-  //   {
-  //     startDate: new Date(),
-  //     endDate: new Date(),
-  //     key: 'selection',
-  //   },
-  // ]);
   const { dateRange, setDateRange } = useContext(DateRangeContext);
-  // console.log("fechas detalle", dateRange);
+
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
   /* Funcionalidad de Reseñas */
   const [reviews, setReviews] = useState([]);
   const [averageRating, setAverageRating] = useState(0);
 
+  /* Funcionalidad de Favoritos */
+  const [favorites, setFavorites] = useState([]);
+  const [isLoadingFavorites, setIsLoadingFavorites] = useState(true);
+  const storedUser = JSON.parse(localStorage.getItem('userGoTrip')) || {};
+  const idUser = storedUser?.user?.id;
+
+  const apiUrl =
+    import.meta.env.VITE_API_URL_DEVELOPMENT ||
+    import.meta.env.VITE_API_URL_PRODUCTION;
+
   useEffect(() => {
     const handleResize = () => {
       setWindowWidth(window.innerWidth);
     };
 
-    window.addEventListener("resize", handleResize);
+    window.addEventListener('resize', handleResize);
     return () => {
-      window.removeEventListener("resize", handleResize);
+      window.removeEventListener('resize', handleResize);
     };
   }, []);
 
@@ -85,14 +85,14 @@ const Detail = () => {
           }
         } else {
           console.error(
-            "Se esperaba un array de reseñas, pero se recibió:",
+            'Se esperaba un array de reseñas, pero se recibió:',
             reviewsData
           );
           setReviews([]); // Si no se recibe un array válido, establecemos 'reviews' como array vacío
           setAverageRating(0); // Si hay un error, el promedio será 0
         }
       } catch (error) {
-        console.error("Error al obtener las reseñas:", error);
+        console.error('Error al obtener las reseñas:', error);
 
         // Si ocurre un error, no usamos datos de respaldo
         setReviews([]); // No mostramos reseñas
@@ -103,33 +103,18 @@ const Detail = () => {
     fetchReviews();
   }, [id]);
 
-  /* Funcionalidad de Favoritos */
-  const [favorites, setFavorites] = useState([]);
-  const [isLoadingFavorites, setIsLoadingFavorites] = useState(true);
-  const storedUser = JSON.parse(localStorage.getItem("userGoTrip")) || {};
-  const idUser = storedUser?.user?.id;
-
-  const apiUrl =
-    import.meta.env.VITE_API_URL_DEVELOPMENT ||
-    import.meta.env.VITE_API_URL_PRODUCTION;
-
-    
-
   useEffect(() => {
     const fetchEventDetails = async () => {
       try {
         setLoading(true);
         const response = await axios.get(`${apiUrl}/productos/${id}`);
         const eventData = response.data;
-        // console.log('Datos del evento:', eventData); // Verifica los datos recibidos
-        //setCurrentEvent(eventData);
-        // Convertir fechas a objetos Date
-        const startDate = new Date(eventData.fechaInicio + "T00:00:00");
-        const endDate = new Date(eventData.fechaFin + "T23:59:59");
+        const startDate = new Date(eventData.fechaInicio + 'T00:00:00');
+        const endDate = new Date(eventData.fechaFin + 'T23:59:59');
 
         // Validar fechas
         if (isNaN(startDate.getTime()) || isNaN(endDate.getTime())) {
-          throw new Error("Fechas no válidas");
+          throw new Error('Fechas no válidas');
         }
 
         // Actualizar el estado del evento
@@ -144,24 +129,12 @@ const Detail = () => {
           {
             startDate: startDate,
             endDate: endDate,
-            key: "selection",
+            key: 'selection',
           },
         ]);
-
-        // // Obtener características
-        // const featuresResponse = await axios.get(`${apiUrl}/features`);
-        // const featuresData = featuresResponse.data;
-        // if (Array.isArray(featuresData)) {
-        //   setFeatures(featuresData);
-        // } else if (featuresData && Array.isArray(featuresData.content)) {
-        //   setFeatures(featuresData.content);
-        // } else {
-        //   console.error("Formato de respuesta inesperado:", featuresData);
-        //   setFeatures([]);
-        // }
       } catch (error) {
-        console.error("Error al obtener los detalles del evento:", error);
-        setError("No se pudieron cargar los detalles del evento");
+        console.error('Error al obtener los detalles del evento:', error);
+        setError('No se pudieron cargar los detalles del evento');
       } finally {
         setLoading(false);
       }
@@ -176,7 +149,7 @@ const Detail = () => {
         const data = await getFavoritesProducts(idUser);
         setFavorites(data);
       } catch (error) {
-        console.log("Error al traer favoritos:", error);
+        console.log('Error al traer favoritos:', error);
       } finally {
         setIsLoadingFavorites(false);
       }
@@ -202,7 +175,7 @@ const Detail = () => {
     const eventEndDate = new Date(currentEvent.fechaFin);
 
     if (startDate < eventStartDate || endDate > eventEndDate) {
-      alert("Las fechas seleccionadas están fuera del rango permitido.");
+      alert('Las fechas seleccionadas están fuera del rango permitido.');
       return;
     }
 
@@ -219,14 +192,14 @@ const Detail = () => {
     if (windowWidth < 768) {
       return {
         months: 1,
-        direction: "vertical",
-        className: "border border-gray-300 rounded-lg shadow-md w-full",
+        direction: 'vertical',
+        className: 'border border-gray-300 rounded-lg shadow-md w-full',
       };
     } else {
       return {
         months: 2,
-        direction: "horizontal",
-        className: "border border-gray-300 rounded-lg shadow-md",
+        direction: 'horizontal',
+        className: 'border border-gray-300 rounded-lg shadow-md w-full',
       };
     }
   };
@@ -236,20 +209,20 @@ const Detail = () => {
     if (windowWidth < 768) {
       return {
         months: 1,
-        direction: "vertical",
-        className: "border border-gray-300 rounded-lg shadow-md w-full",
+        direction: 'vertical',
+        className: 'border border-gray-300 rounded-lg shadow-md w-full',
       };
     } else if (windowWidth < 1024) {
       return {
         months: 1,
-        direction: "vertical",
-        className: "border border-gray-300 rounded-lg shadow-md w-full",
+        direction: 'vertical',
+        className: 'border border-gray-300 rounded-lg shadow-md w-full',
       };
     } else {
       return {
         months: 2,
-        direction: "horizontal",
-        className: "border border-gray-300 rounded-lg shadow-md",
+        direction: 'horizontal',
+        className: 'border border-gray-300 rounded-lg shadow-md',
       };
     }
   };
@@ -274,52 +247,43 @@ const Detail = () => {
     imageUrl:
       currentEvent.images && currentEvent.images.length > 0
         ? currentEvent.images[0]
-        : "",
+        : '',
   };
 
   return (
     <>
-      <div className="w-full mt-[40px] bg-gray-200">
+      <div className="w-full max-w-screen-2xl mx-auto pt-24 md:pt-32 ">
         {/* Header */}
-        <div className="relative w-full bg-[#35A6B8] p-4">
-          <div className="max-w-6xl mx-auto flex justify-between items-center">
-            <h2 className="text-2xl font-semibold text-white">
-              {currentEvent.name}
-            </h2>
-            <div className="flex items-center space-x-4">
-              <button className="flex items-center h-8 w-8">
-                <HeartFavorite
-                  event={currentEvent}
-                  favorites={favorites}
-                  setFavorites={setFavorites}
-                />
-              </button>
+        <div className="relative flex justify-between  w-full p-4">
+          <h2 className="text-2xl md:text-3xl xl:text-4xl font-semibold text-black">
+            {currentEvent.name}
+          </h2>
 
-              <button
-                onClick={() => setShowShareModal(true)}
-                className="flex items-center text-white hover:text-gray-200"
-              >
-                <MdShare size={32} />
-              </button>
-              {/*<img
-              src="/arrow-circle-left-svgrepo-com.svg"
-              alt="Volver"
-              className="w-8 h-8 cursor-pointer"
-              onClick={goBack}
-            />*/}
-              <button
-                onClick={goBack}
-                className="flex items-center text-white hover:text-gray-200"
-              >
-                <IoArrowBackCircleOutline size={32} />
-              </button>
-            </div>
+          <div className=" flex items-center space-x-1">
+            <button className="flex items-center h-8 w-8">
+              <HeartFavorite
+                event={currentEvent}
+                favorites={favorites}
+                setFavorites={setFavorites}
+              />
+            </button>
+
+            <button
+              onClick={() => setShowShareModal(true)}
+              className="flex items-center text-white hover:text-gray-200"
+            >
+              <MdShare className="fill-black hover:scale-105" size={32} />
+            </button>
+
+            <button onClick={goBack} className="flex items-center ">
+              <IoArrowBackCircleOutline className="fill-black hover:scale-105" size={32} />
+            </button>
           </div>
         </div>
 
         {/* Body */}
-        <div className="p-4">
-          <div className="max-w-6xl mx-auto">
+        <div className="p-4 my-5 bg-gray-200">
+          <div>
             <Gallery images={currentEvent.images} />
 
             <div className="mt-8">
@@ -348,7 +312,7 @@ const Detail = () => {
                       >
                         <div className="w-12 h-12 flex items-center justify-center mb-2">
                           {feature.description &&
-                          feature.description.startsWith("http") ? (
+                          feature.description.startsWith('http') ? (
                             <img
                               src={feature.description}
                               alt={feature.name}
@@ -387,13 +351,13 @@ const Detail = () => {
                         <div className="flex flex-col items-center bg-[#3C6E71] text-white rounded-2xl px-8 py-4 shadow-lg mt-4 md:mt-0">
                           <FaStar className="text-yellow-400 text-3xl" />
                           <p className="text-2xl font-bold mt-2">
-                            {averageRating ? averageRating : "0.0"}
+                            {averageRating ? averageRating : '0.0'}
                           </p>
                         </div>
                       </div>
                       <hr className="my-4 border-t border-gray-300" />
                       <p className="text-lg font-semibold text-gray-600 text-right pr-4">
-                        ({reviews && reviews.length > 0 ? reviews.length : 0}{" "}
+                        ({reviews && reviews.length > 0 ? reviews.length : 0}{' '}
                         reseñas)
                       </p>
                     </div>
@@ -407,7 +371,7 @@ const Detail = () => {
                   </h3>
                   <div className="w-full overflow-x-auto">
                     <DateRange
-                      rangeColors={["#35A6B8"]}
+                      rangeColors={['#35A6B8']}
                       editableDateInputs={true}
                       onChange={handleDateChange}
                       moveRangeOnFirstSelection={false}
@@ -440,7 +404,7 @@ const Detail = () => {
                           ? new Date(
                               dateRange[0].startDate
                             ).toLocaleDateString()
-                          : "Fecha no válida"}
+                          : 'Fecha no válida'}
                       </span>
                     </div>
                     <div
@@ -452,7 +416,7 @@ const Detail = () => {
                         {/* {dateRange[0].endDate.toLocaleDateString()} */}
                         {dateRange[0]?.endDate
                           ? new Date(dateRange[0].endDate).toLocaleDateString()
-                          : "Fecha no válida"}
+                          : 'Fecha no válida'}
                       </span>
                     </div>
                   </div>
@@ -461,7 +425,7 @@ const Detail = () => {
                     <div className="mb-4">
                       <div className="w-full overflow-auto">
                         <DateRange
-                          rangeColors={["#35A6B8"]}
+                          rangeColors={['#35A6B8']}
                           editableDateInputs={true}
                           onChange={handleDateChange}
                           moveRangeOnFirstSelection={false}
@@ -483,7 +447,7 @@ const Detail = () => {
                     </span>
                   </div>
 
-                  <Link to={"/reservar-informacion"}>
+                  <Link to={'/reservar-informacion'}>
                     <button
                       className="w-full bg-[#35A6B8] text-white py-3 rounded-lg hover:bg-[#2d8b9a] transition-colors"
                       onClick={() =>

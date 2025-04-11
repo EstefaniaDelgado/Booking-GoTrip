@@ -1,14 +1,12 @@
 import { useContext, useEffect, useState } from 'react';
 import RecomendadosCard from './RecomendadosCard';
-// import useEvents from "../../../Hooks/useEvents";
 import { EventContext } from '../../../context/ProductContext';
 import { getFavoritesProducts } from '../../../services/favoritesServie';
-import Spinner from '../../../components/Spinner/Spinner';
 import SkeletonCard from './SkeletonCard';
 
 const RecomendadosHome = () => {
   const { events, fetchEvents, isLoading } = useContext(EventContext);
-  console.log('eventos', events);
+  // console.log('eventos', events);
   const [startIndex, setStartIndex] = useState(0);
   const [eventsToDisplay, setEventsToDisplay] = useState([]);
   const itemsPerPage = 9;

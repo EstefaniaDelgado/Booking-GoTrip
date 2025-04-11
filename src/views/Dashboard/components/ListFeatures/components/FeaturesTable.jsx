@@ -81,7 +81,7 @@ const FeaturesTable = () => {
 
 
   return (
-    <Card className="h-full w-full mx-auto max-w-[900px] border mb-5">
+    <Card className="h-full w-full mx-auto max-w-[900px] border border-b-4 mb-5">
       <CardBody className="max-h-[540px] overflow-hidden  overflow-x-auto p-0 ">
         <table className=" w-full min-w-max table-auto text-left">
           <thead>
@@ -120,7 +120,7 @@ const FeaturesTable = () => {
                   return (
                     <tr
                       key={`item-product-${id}`}
-                      className="border-b border-anti-flash-white border-[3px] "
+                      className="border-b border-anti-flash-white"
                     >
                       <td className={classes}>
                         <div className="flex flex-col px-4">

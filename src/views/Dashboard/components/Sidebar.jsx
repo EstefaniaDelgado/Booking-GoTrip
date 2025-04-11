@@ -27,7 +27,6 @@ const menuItems = [
     route: null,
     subItems: [
       { text: 'Lista', route: 'listar-productos' },
-      { text: 'Crear Nuevo', route: 'crear-producto' },
       { text: 'Caracteristicas', route: 'caracteristicas' },
       { text: 'Categorias', route: 'listar-categorias' },
     ],
@@ -58,7 +57,7 @@ const Sidebar = () => {
 
   return (
     <Card className="h-full w-full max-w-[20rem] p-4 shadow-none ">
-      <List>
+      <List className=' p-0'>
         {menuItems.map((item, index) =>
           item.subItems ? (
             <Accordion

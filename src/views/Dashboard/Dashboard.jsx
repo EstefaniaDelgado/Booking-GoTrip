@@ -14,13 +14,12 @@ const Dashboard = () => {
         <FaRegFaceGrimace size={40} />
       </Card>
 
-
-      <div className="hidden flex-1 md:grid grid-cols-[auto_1fr]">
+      <div className="hidden flex-1 md:grid grid-cols-[auto_1fr] pt-8">
         <section className="row-span-2 ">
           <Sidebar />
         </section>
 
-        <section className="row-span-2 p-3 overflow-hidden">
+        <section className="row-span-2 p-4 overflow-hidden">
           <Outlet />
         </section>
       </div>

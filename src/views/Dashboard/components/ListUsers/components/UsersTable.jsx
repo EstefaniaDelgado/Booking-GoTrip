@@ -20,32 +20,13 @@ const UsersTable = () => {
   const [users, setUsers] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
+
+  /* Paginación */
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(5);
   const [currentUsersPerPage, setCurrentUsersPerPage] = useState([]);
   const [totalPages, setTotalPages] = useState(0);
 
-  // Fetch users with improved error handling
-  // const loadUsers = useCallback(async () => {
-  //   try {
-  //     setIsLoading(true);
-  //     setError(null);
-  //     const response = await fetchUsers();
-
-  //     // Validate response
-  //     if (!Array.isArray(response)) {
-  //       throw new Error('Invalid response format');
-  //     }
-
-  //     setUsers(response);
-  //   } catch (error) {
-  //     console.error('Error fetching users:', error);
-  //     setError(error.message || 'No se pudieron cargar los usuarios');
-  //     setUsers([]);
-  //   } finally {
-  //     setIsLoading(false);
-  //   }
-  // }, []);
 
   const loadUsers = async () => {
     try {
@@ -73,18 +54,6 @@ const UsersTable = () => {
     loadUsers();
   }, []);
 
-  // Pagination effect
-  // useEffect(() => {
-  //   if (Array.isArray(users) && users.length > 0) {
-  //     const indexOfLastItem = currentPage * itemsPerPage;
-  //     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  //     const sortedUsers = [...users].sort((a, b) => a.id - b.id);
-  //     const updatedUsers = sortedUsers.slice(indexOfFirstItem, indexOfLastItem);
-  //     setCurrentUsersPerPage(updatedUsers);
-  //   } else {
-  //     setCurrentUsersPerPage([]);
-  //   }
-  // }, [users, currentPage, itemsPerPage]);
 
   useEffect(() => {
     if (Array.isArray(users) && users.length > 0) {
@@ -151,14 +120,16 @@ const UsersTable = () => {
       )}
       <Card className="h-full w-full mx-auto max-w-[900px] border mb-5">
         <CardBody className="max-h-[540px] overflow-hidden overflow-x-auto p-0">
-          <table className="w-full min-w-max table-auto text-left">
+          <table className="rounded-xl w-full min-w-max table-auto text-left">
             <thead>
               <tr>
                 {['Id', 'Usuario', 'Email', 'Permisos de Administrador'].map(
                   (head) => (
                     <th
                       key={head}
-                      className="border-b border-blue-gray-100 bg-anti-flash-white p-4"
+                      className={`${head === 'Id' && 'rounded-tl-xl'} ${
+                        head === 'Permisos de Administrador' && 'rounded-tr-lg'
+                      } border-b border-blue-gray-100 bg-anti-flash-white p-4 `}
                     >
                       <Typography
                         variant="small"
@@ -189,7 +160,7 @@ const UsersTable = () => {
                 currentUsersPerPage.map((user) => (
                   <tr
                     key={`user-${user.id}`}
-                    className="border-b border-anti-flash-white border-[3px]"
+                    className="border-b border-anti-flash-white "
                   >
                     <td className="p-4">
                       <Typography

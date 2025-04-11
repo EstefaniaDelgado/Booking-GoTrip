@@ -9,7 +9,6 @@ import {
   Chip,
 } from '@material-tailwind/react';
 import { useEffect, useState } from 'react';
-// import useEvents from '../../../../../Hooks/useEvents';
 import { MdOutlineEdit } from 'react-icons/md';
 import { LuTrash2 } from 'react-icons/lu';
 import PaginationTable from './PaginationTable';
@@ -75,9 +74,9 @@ const ProductsTable = () => {
   };
 
   return (
-    <Card className="h-full w-full mx-auto max-w-[900px] border mb-5">
+    <Card className="h-full w-full mx-auto max-w-[900px] border border-b-4 mb-5">
       <CardBody className="max-h-[540px] overflow-hidden  overflow-x-auto p-0 ">
-        <table className=" w-full min-w-max table-auto text-left">
+        <table className="w-full min-w-max table-auto text-left">
           <thead>
             <tr>
               {TABLE_HEAD.map((head) => (
@@ -114,7 +113,7 @@ const ProductsTable = () => {
                   return (
                     <tr
                       key={`item-product-${id}`}
-                      className="border-b border-anti-flash-white border-[3px] "
+                      className="border-b border-anti-flash-white"
                     >
                       <td className={classes}>
                         <div className="flex flex-col px-4">

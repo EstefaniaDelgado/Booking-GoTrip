@@ -168,15 +168,20 @@ const Body = () => {
         </div>
 
         <section className="py-6 w-full bg-gray-100">
-          <article className=" px-3 md:px-10"><h2 className="secondHeaders">Recomendaciones</h2>
-          <h4 className="subtitles md:mb-4 lg:pt-1">
-            Descubre todos los eventos que tenemos para ti.
-          </h4>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 w-full">
-            <div className="col-span-1 sm:col-span-2 my-10">
-              <RecomendadosHome />
-            </div>
-          </div></article>
+          <div className='w-full mx-auto max-w-screen-2xl'>
+            {' '}
+            <article className=" px-3 md:px-10">
+              <h2 className="secondHeaders">Recomendaciones</h2>
+              <h4 className="subtitles md:mb-4 lg:pt-1">
+                Descubre todos los eventos que tenemos para ti.
+              </h4>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 w-full">
+                <div className="col-span-1 sm:col-span-2 my-10">
+                  <RecomendadosHome />
+                </div>
+              </div>
+            </article>
+          </div>
         </section>
       </section>
 

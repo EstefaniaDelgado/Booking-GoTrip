@@ -66,7 +66,7 @@ const RecomendadosHome = () => {
         }
       >
         {!visibleEvents.length
-          ? Array.from({ length: 4 }).map((_, index) => (
+          ? Array.from({ length: 9 }).map((_, index) => (
               <SkeletonCard key={index} />
             ))
           : visibleEvents.map((event) => (

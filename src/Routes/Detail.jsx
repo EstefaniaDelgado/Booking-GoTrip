@@ -18,6 +18,11 @@ import { EVENT } from '../utils/constantsLocalSorage';
 import WhatsAppContactButton from '../views/Home/components/WhatsAppContactButton';
 import { getReviews } from '../services/reviewService';
 
+/* Iconos de las Caracteristicas */
+import { FaPlane, FaHotel, FaCamera, FaWifi, FaGifts } from 'react-icons/fa';
+import { IoFastFoodSharp } from 'react-icons/io5';
+import { MdOutlineEmojiTransportation } from 'react-icons/md';
+
 const Detail = () => {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -250,6 +255,20 @@ const Detail = () => {
         : '',
   };
 
+  const categoryIcons = {
+    Tiquetes: <FaPlane size={20} />,
+    Hospedaje: <FaHotel size={20} />,
+    Alimentos: <IoFastFoodSharp size={20} />,
+    Transporte: <MdOutlineEmojiTransportation size={20} />,
+    Entretenimiento: <FaCamera size={20} />,
+    Merchandise: <FaGifts size={20} />,
+    Wifi: <FaWifi size={20} />,
+  };
+
+  const renderIcon = (name) => {
+    return categoryIcons[name];
+  };
+
   return (
     <>
       <div className="w-full max-w-screen-2xl mx-auto pt-24 md:pt-32 ">
@@ -276,7 +295,10 @@ const Detail = () => {
             </button>
 
             <button onClick={goBack} className="flex items-center ">
-              <IoArrowBackCircleOutline className="fill-black hover:scale-105" size={32} />
+              <IoArrowBackCircleOutline
+                className="fill-black hover:scale-105"
+                size={32}
+              />
             </button>
           </div>
         </div>
@@ -311,20 +333,7 @@ const Detail = () => {
                         className="bg-gray-50 p-4 rounded flex flex-col items-center justify-center text-center border border-gray-200"
                       >
                         <div className="w-12 h-12 flex items-center justify-center mb-2">
-                          {feature.description &&
-                          feature.description.startsWith('http') ? (
-                            <img
-                              src={feature.description}
-                              alt={feature.name}
-                              className="w-full h-full object-cover rounded"
-                            />
-                          ) : (
-                            <img
-                              src="/default-icon.svg"
-                              alt={feature.name}
-                              className="w-6 h-6"
-                            />
-                          )}
+                          {renderIcon(feature.name)}
                         </div>
                         <span className="text-sm font-medium">
                           {feature.name}

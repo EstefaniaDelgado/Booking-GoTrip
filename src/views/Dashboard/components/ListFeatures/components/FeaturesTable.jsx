@@ -3,7 +3,6 @@ import {
   Typography,
   CardBody,
   CardFooter,
-  Avatar,
   IconButton,
   Tooltip
 } from '@material-tailwind/react';

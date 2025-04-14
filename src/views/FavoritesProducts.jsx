@@ -28,31 +28,31 @@ const FavoritesProducts = () => {
   }, [idUser]);
 
   return (
-    <section className="flex-1 flex flex-col">
-      <article className="bg-sky text-white font-medium text-2xl p-6 mt-10 ">
+    <section className="w-[95%] max-w-screen-2xl py-20 md:py-24  mx-auto flex-1 flex flex-col">
+      <article className="text-2xl md:text-3xl xl:text-4xl font-semibold text-black p-6 ">
         <div className="mx-auto flex justify-between max-w-screen-2xl">
           Favoritos
           <Link to={'/'}>
-            <IoArrowBackCircleOutline size={30} />
+            <IoArrowBackCircleOutline size={32} className='hover:scale-105' />
           </Link>
         </div>
       </article>
 
       <div
-        className={`text-center py-5 font-semibold md:text-xl tracking-wider text-gray-500`}
+        className={`text-center py-5 md:pb-8 font-semibold md:text-xl tracking-wider text-[#3C6E71]`}
       >
         <p className={`${favorites?.length ? 'block' : 'hidden'}`}>
           Tienes {favorites?.length} eventos en tu lista de favoritos.
         </p>
       </div>
 
-      <article className="text-center mx-auto flex-1 flex flex-col justify-center 2xl:justify-start pt-5 pb-10 px-10 xl:px-0 max-w-screen-2xl">
+      <article className="text-center mx-auto w-full flex-1 flex flex-col justify-center 2xl:justify-start  max-w-screen-2xl">
         {isLoading ? (
           <p>Cargando Favoritos...</p>
         ) : !favorites?.length ? (
           <p>No hay productos favoritos aún</p> 
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 w-full">
+          <div /* className="grid grid-cols-1 sm:grid-cols-2 gap-6 w-full" */ className='grid gap-6 md:grid-cols-2 lg:grid-cols-3' >
             {favorites.map((favorite) => (
               <RecomendadosCard
                 key={`item-event${favorite.id}`}

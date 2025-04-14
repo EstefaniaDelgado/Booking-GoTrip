@@ -56,8 +56,8 @@ const Reviews = () => {
   }, [id]);
 
   return (
-    <section>
-      <article className="bg-sky text-white font-medium text-2xl p-6 mt-10">
+    <section className="w-[95%] max-w-screen-2xl py-20 md:py-24  mx-auto flex-1 flex flex-col">
+      <article className="text-2xl md:text-3xl xl:text-4xl font-semibold text-black p-6 ">
         <div className="mx-auto flex justify-between max-w-screen-2xl">
           Reseñas
           <Link to={"/"}>

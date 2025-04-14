@@ -1,25 +1,27 @@
-import { useEffect, useState } from "react";
-import { IoArrowBackCircleOutline } from "react-icons/io5";
+import { useEffect, useState } from 'react';
+import { IoArrowBackCircleOutline } from 'react-icons/io5';
 import {
   FaCalendarAlt,
   FaStar,
   FaSignInAlt,
   FaSignOutAlt,
-} from "react-icons/fa";
-import { Link } from "react-router-dom";
-import GlobalWhatsAppContactButton from "./Home/components/GlobalWhatsAppContactButton";
-import { getReservations } from "../services/reserveService";
-import { getProductById } from "../services/productService";
-import { submitReview } from "../services/reviewService";
+} from 'react-icons/fa';
+import { Link, useNavigate } from 'react-router-dom';
+import GlobalWhatsAppContactButton from './Home/components/GlobalWhatsAppContactButton';
+import { getReservations } from '../services/reserveService';
+import { getProductById } from '../services/productService';
+import { submitReview } from '../services/reviewService';
 
 const Reservations = () => {
   const [reservations, setReservations] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [showRatingModal, setShowRatingModal] = useState(false);
   const [rating, setRating] = useState(0); // Calificación
-  const [message, setMessage] = useState(""); // Mensaje de calificación
+  const [message, setMessage] = useState(''); // Mensaje de calificación
   const [userLogin, setUserLogin] = useState(null);
   const [selectedReservation, setSelectedReservation] = useState(null);
+
+  const navigate = useNavigate();
 
   const handleOpenModal = (reservation) => {
     setSelectedReservation(reservation); // Guardamos la reserva seleccionada
@@ -38,7 +40,7 @@ const Reservations = () => {
     setMessage(e.target.value); // Actualizar el mensaje
   };
 
-  const storedUser = JSON.parse(localStorage.getItem("userGoTrip")) || {};
+  const storedUser = JSON.parse(localStorage.getItem('userGoTrip')) || {};
   const idUser = storedUser?.user?.id;
 
   // Lógica de la calificación
@@ -49,26 +51,26 @@ const Reservations = () => {
       lastName: storedUser.user?.apellido,
       reserveId: selectedReservation?.id,
       rating: rating,
-      comment: message || "",
+      comment: message || '',
     };
 
     try {
       await submitReview(newReview); // Llamada a la función que envía la reseña
-      console.log("Reseña enviada:", newReview);
+      console.log('Reseña enviada:', newReview);
       setShowRatingModal(false); // Cierra el modal
     } catch (error) {
-      console.error("Error al enviar la reseña:", error);
+      console.error('Error al enviar la reseña:', error);
     }
   };
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const jwt = localStorage.getItem("userGoTrip")
-          ? JSON.parse(localStorage.getItem("userGoTrip")).token
+        const jwt = localStorage.getItem('userGoTrip')
+          ? JSON.parse(localStorage.getItem('userGoTrip')).token
           : null;
         if (!jwt) {
-          console.log("Usuario no autenticado");
+          console.log('Usuario no autenticado');
           setIsLoading(false);
           return;
         }
@@ -108,12 +110,12 @@ const Reservations = () => {
           setReservations(reservationsWithProductDetails);
         } else {
           console.log(
-            "La respuesta no es válida o no contiene reservas:",
+            'La respuesta no es válida o no contiene reservas:',
             reservations
           );
         }
       } catch (error) {
-        console.log("Error al obtener reservas", error);
+        console.log('Error al obtener reservas', error);
       } finally {
         setIsLoading(false);
       }
@@ -127,22 +129,21 @@ const Reservations = () => {
   );
 
   return (
-    <section className="flex-1 flex flex-col bg-gray-200">
-      <div className="relative w-full bg-[#35A6B8] p-4">
-        <div className="max-w-6xl mx-auto flex justify-between items-center">
-          <h2 className="text-2xl font-semibold text-white">Reservas</h2>
-          <div className="flex items-center space-x-4">
-            <button
-              className="flex items-center text-white hover:text-gray-200"
-              onClick={"/"}
-            >
-              <IoArrowBackCircleOutline size={32} />
-            </button>
-          </div>
+    <section className="w-[95%] max-w-screen-2xl mx-auto flex-1 py-20 md:py-24 flex flex-col ">
+      <div className="p-4 flex justify-between items-center">
+        <h2 className="text-2xl md:text-3xl xl:text-4xl font-semibold text-black">Reservas</h2>
+        <div className="flex items-center space-x-4">
+          <button
+            className="flex items-center text-black"
+            onClick={()=>navigate(-1)}
+          >
+            <IoArrowBackCircleOutline size={32} className='hover:scale-105' />
+          </button>
         </div>
       </div>
+
       <div className="text-center py-5 font-semibold md:text-xl tracking-wider text-[#3C6E71]">
-        <p className={`${reservations?.length ? "block" : "hidden"}`}>
+        <p className={`${reservations?.length ? 'block' : 'hidden'}`}>
           Tienes {reservations?.length} evento en tu lista de reservas.
         </p>
       </div>
@@ -173,20 +174,20 @@ const Reservations = () => {
                   {/* Imagen del evento */}
                   <img
                     src={
-                      reservation.event?.images[0] || "default-image-url.jpg"
+                      reservation.event?.images[0] || 'default-image-url.jpg'
                     }
-                    alt={reservation.event?.name || "Evento sin nombre"}
+                    alt={reservation.event?.name || 'Evento sin nombre'}
                     className="w-40 h-40 rounded-lg object-cover"
                   />
 
                   {/* Información del evento */}
                   <div className="flex-1 sm:ml-6 mt-4 sm:mt-0 text-left pr-10">
                     <p className="text-2xl font-bold text-[#3C6E71] mt-2">
-                      {reservation.event?.name || "Evento sin nombre"}
+                      {reservation.event?.name || 'Evento sin nombre'}
                     </p>
                     <p className="text-gray-600 text-sm mt-1 pr-6">
                       {reservation.event?.description ||
-                        "Descripción no disponible"}
+                        'Descripción no disponible'}
                     </p>
                   </div>
 
@@ -229,7 +230,7 @@ const Reservations = () => {
                     key={star}
                     onClick={() => handleRatingChange(star)}
                     className={`cursor-pointer ${
-                      star <= rating ? "text-yellow-500" : "text-gray-300"
+                      star <= rating ? 'text-yellow-500' : 'text-gray-300'
                     }`}
                   />
                 ))}

@@ -19,13 +19,13 @@ const Booking = () => {
   }
 
   return (
-    <section className="flex-1 flex flex-col">
-      <article className="bg-sky text-white font-medium text-2xl p-6 mt-10 ">
+    <section className="w-[95%] max-w-screen-2xl mx-auto  py-20 flex-1 flex flex-col">
+      <article className="text-2xl md:text-3xl xl:text-4xl font-semibold text-black p-6 mt-10 ">
         <div className="mx-auto flex justify-between max-w-screen-2xl">
           <h2 className="lg:text-3xl"> Reservación</h2>
           <IoArrowBackCircleOutline
-            size={30}
-            className="cursor-pointer"
+            size={32}
+            className="cursor-pointer hover:scale-105"
             onClick={handleGoBackIcon}
           />
         </div>

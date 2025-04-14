@@ -160,9 +160,7 @@ const Category = () => {
   };
 
   return (
-    // <div >
     <div className="pb-8">
-      {/* <section className="relative min-h-[400px] md:h-[400px] w-full bg-cover bg-center"> */}
       <section className="relative w-full bg-cover bg-center ">
         <Header />
       </section>
@@ -172,11 +170,11 @@ const Category = () => {
           {categories.map((category) => (
             <div
               key={category.id_category}
-              className="flex items-center border border-[#3C6E71] bg-white rounded-lg px-4 py-2 gap-2"
+              className="flex items-center border border-teal-600 bg-white rounded-lg px-4 py-2 gap-2"
             >
               <label
                 htmlFor={`category-${category.id_category}`}
-                className="text-[#3C6E71] font-semibold cursor-pointer"
+                className="text-teal-600 font-semibold cursor-pointer"
                 onClick={() => handleCategoryChange(category.id_category)}
               >
                 {category.name}
@@ -189,7 +187,7 @@ const Category = () => {
                       prevSelected.filter((id) => id !== category.id_category)
                     );
                   }}
-                  className="text-[#3C6E71] ml-2"
+                  className="text-teal-600 ml-2"
                 >
                   <img
                     src="/close.svg"
@@ -206,7 +204,7 @@ const Category = () => {
         <div className="mt-6">
           <button
             onClick={clearFilters}
-            className="bg-[#3C6E71] text-white px-4 py-2 rounded"
+            className="bg-teal-600 text-white px-4 py-2 rounded"
           >
             Limpiar filtros
           </button>
@@ -225,8 +223,8 @@ const Category = () => {
         </div>
 
         {/* Productos filtrados */}
-        {/* <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6"> */}
-        <div className="mx-auto w-full max-w-screen-2xl mt-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+      
+        <div  className=" mx-auto max-w-screen-2xl py-5 md:py-8 grid gap-8 md:grid-cols-2 lg:grid-cols-3  ">
           {filteredProducts.map((event) => (
             <RecomendadosCard
               key={event.id}

@@ -3,7 +3,7 @@ const PoliciesModal = ({ isOpen, onClose }) => {
 
     return (
         <div className="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center p-4 transition-opacity duration-300">
-            <div className="bg-white rounded-xl shadow-2xl w-full max-w-4xl max-h-[85vh] overflow-y-auto border border-gray-200">
+            <div className="bg-white rounded-xl shadow-2xl w-full max-w-4xl max-h-[85vh] overflow-y-auto scrollbar-thin scrollbar-thumb-teal-600 scrollbar-track-transparent border border-gray-200">
                 {/* Cabecera del modal */}
                 <div className="bg-teal-600 text-white p-4 flex items-center justify-between sticky top-0 z-10 shadow-md">
                     <div className="flex items-center">

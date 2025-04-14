@@ -151,7 +151,7 @@ const ShareProduct = ({ productId, onClose }) => {
       <ToastContainer />
 
       <div
-        className={`bg-white rounded-lg shadow-lg max-w-md w-full transition-all duration-300 max-h-[90vh] overflow-y-auto
+        className={`bg-white rounded-lg shadow-lg max-w-md w-full transition-all duration-300 max-h-[90vh] overflow-y-auto scrollbar-thin scrollbar-thumb-gray-500 scrollbar-track-transparent
           ${
             isVisible
               ? "opacity-100 transform translate-y-0"

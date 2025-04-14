@@ -11,7 +11,7 @@ import { SelectCategory } from './components/SelectCategory';
 import { EventContext } from '../../../../context/ProductContext';
 import { Checkbox } from '@material-tailwind/react';
 import { getFeatures } from '../../../../services/featuresService';
-import SelectCountry from './components/SelectCountry';
+
 
 const ProductForm = ({ onSubmit, initialData = {} }) => {
   const { events, fetchEvents } = useContext(EventContext);
@@ -143,13 +143,7 @@ const ProductForm = ({ onSubmit, initialData = {} }) => {
     setSelectedCategory(category.id_category);
   };
 
-  const handleGetCountry=(country)=>{
-    console.log("Pais seleccionado",country);
-    setInputs((prevInputs) => ({
-      ...prevInputs,
-      country: country,
-    }));
-  }
+ 
 
   const handleCheckFeature = (e) => {
     const { checked, value } = e.target;

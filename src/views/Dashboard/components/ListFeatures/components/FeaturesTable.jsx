@@ -17,6 +17,11 @@ import { useNavigate } from 'react-router';
 
 import { getFeatures } from '../../../../../services/featuresService';
 
+/* Iconos de las Caracteristicas */
+import { FaPlane, FaHotel, FaCamera, FaWifi, FaGifts  } from 'react-icons/fa';
+import { IoFastFoodSharp } from 'react-icons/io5';
+import { MdOutlineEmojiTransportation } from 'react-icons/md';
+
 const TABLE_HEAD = ['Id', 'Nombre','', 'Acciones'];
 
 const TABLE_ROWS = [
@@ -34,7 +39,7 @@ const TABLE_ROWS = [
 
 const FeaturesTable = () => {
   const [events, setEvents] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
+    const [isLoading, setIsLoading] = useState(true);
   const [eventId, setEventId] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(5);
@@ -68,16 +73,30 @@ const FeaturesTable = () => {
   const [openModal, setOpenModal] = useState(false);
 
 
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   const handleGetIdDeleteIcon = (id) => {
     setEventId(id);
     setOpenModal(true);
   };
 
-  const handleUpdateProduct = (id) => {
-    navigate(`/administracion/caracteristicas/${id}`);
-  };
+  // const handleUpdateProduct = (id) => {
+  //   navigate(`/administracion/caracteristicas/${id}`);
+  // };
+
+  const categoryIcons={
+    'Tiquetes': <FaPlane size={20} />,
+    'Hospedaje': <FaHotel size={20} />,
+    'Alimentos': <IoFastFoodSharp size={20} />,
+    'Transporte': <MdOutlineEmojiTransportation size={20} />,
+    'Entretenimiento': <FaCamera size={20} />,
+    'Merchandise': <FaGifts size={20} />,
+    'Wifi': <FaWifi size={20} />,
+  }
+
+const renderIcon=(name)=>{
+ return categoryIcons[name]
+}
 
 
   return (
@@ -113,7 +132,7 @@ const FeaturesTable = () => {
               </tr>
             ) : (
               currentEventsPerPage?.map(
-                ({ id, name, description }, index) => {
+                ({ id, name }, index) => {
                   const isLast = index === TABLE_ROWS.length - 1;
                   const classes = isLast ? 'p-4' : 'p-4 ';
 
@@ -135,7 +154,7 @@ const FeaturesTable = () => {
                       </td>
                       <td className={classes}>
                         <div className="flex items-center gap-3">
-                          <Avatar src={description} alt={name} size="lg" />
+                          {renderIcon(name)}
                           <Typography
                             variant="small"
                             color="blue-gray"
@@ -153,7 +172,7 @@ const FeaturesTable = () => {
                         </div>
                       </td>
                       <td className={classes}>
-                        <Tooltip
+                        {/* <Tooltip
                           content="Editar evento"
                           className="bg-anti-flash-white text-jet"
                         >
@@ -163,7 +182,7 @@ const FeaturesTable = () => {
                           >
                             <MdOutlineEdit size={18} />
                           </IconButton>
-                        </Tooltip>
+                        </Tooltip> */}
                         <Tooltip
                           content="Eliminar Caracteristica"
                           className="bg-anti-flash-white text-jet"

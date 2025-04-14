@@ -1,89 +1,61 @@
 import { useState } from 'react';
-import { Button, Typography } from '@material-tailwind/react';
-import { uploadImage } from '../../../../../utils/uploadToCloudinaryCAT';
-import { createFeatures } from '../../../../../services/featuresService'; 
-import { useNavigate } from 'react-router-dom'; 
+import { Button } from '@material-tailwind/react';
+import { createFeatures } from '../../../../../services/featuresService';
+import { useNavigate } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import IconSelector from './IconSelector';
 
 const AddFeature = () => {
   const [name, setName] = useState('');
-  const [description, setDescription] = useState('');
-  const [image, setImage] = useState(null); 
-  const [imagePreview, setImagePreview] = useState(null); 
-  const navigate = useNavigate(); 
+ // const [description, setDescription] = useState('');
 
-  const handleImageChange = async (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      // Vista previa de la imagen seleccionada
-      setImagePreview(URL.createObjectURL(file));
+  const navigate = useNavigate();
 
-     
-      const uploadedImageUrl = await uploadImage(file); 
-      setImage(uploadedImageUrl);
-    }
+  const handleSelectFeature = (feature) => {
+    setName(feature);
   };
 
-  const handleAddFeature = async () => {
+  const handleAddFeature = async (e) => {
+    e.preventDefault();
     try {
       const newFeature = {
         name,
-        description: image || description, 
       };
+      console.log('envio al servidor', newFeature);
+      await createFeatures(newFeature);
 
-      await createFeatures(newFeature); 
+      toast('Característica agregada con éxito!', {
+        position: 'top-right',
+        type: 'success',
+        autoClose: 1500,
+      });
 
-
-      navigate('/administracion/caracteristicas'); 
-
-
-      setName('');
-      setDescription('');
-      setImage(null);
-      setImagePreview(null);
-
-      console.log('Característica agregada');
+      setTimeout(() => {
+        navigate('/administracion/caracteristicas');
+      }, 1000);
     } catch (error) {
       console.error('Error al agregar la característica:', error);
+      toast('Hubo un problema, intenta de nuevo', { type: 'error' });
     }
   };
 
   return (
-    <div>
-      <h2 className="text-4xl font-semibold tracking-wide p-4">Agregar Nueva Característica</h2>
-      <div className="mb-1 flex flex-col gap-3">
-        <Typography variant="h6" color="blue-gray" className="-mb-3 p-4">
-          Nombre de la Característica
-        </Typography>
-        <input
-          placeholder="Ej. Tours de Tecnología"
-          value={name}
-          className="placeholder:text-gray-500 border-2 rounded-lg py-2 px-10 m-4 focus:outline-none focus:border-teal-300"
-          onChange={(e) => setName(e.target.value)}
-        />
-
-        <Typography variant="h6" color="blue-gray" className="-mb-3 p-4">
-          Cambiar Imagen
-        </Typography>
-        <input
-          type="file"
-          accept="image/*"
-          onChange={handleImageChange}
-          className="mb-4 p-4"
-        />
-        
-
-        {imagePreview && (
-          <img src={imagePreview} alt="Vista previa" className="w-48 h-48 object-cover mb-4 p-4" />
-        )}
-        
-
-        {image && !imagePreview && (
-          <img src={image} alt="Imagen cargada" className="w-48 h-48 object-cover mb-4" />
-        )}
-
-        <Button color="teal" className="m-4" onClick={handleAddFeature}>Agregar Característica</Button>
-      </div>
-    </div>
+    <>
+      <form
+        className="mt-8 mb-2 w-[90%] max-w-screen-lg mx-auto flex flex-col gap-4 "
+        onSubmit={handleAddFeature}
+      >
+        <IconSelector onSelectFeature={handleSelectFeature} />
+        <Button
+          className="block mx-auto my-6 bg-sky capitalize text-[16px]"
+          type="submit"
+        >
+          Aceptar
+        </Button>
+      </form>
+      <ToastContainer />
+    </>
   );
 };
 

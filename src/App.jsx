@@ -27,7 +27,7 @@ import Reviews from './views/Reviews';
 import Booking from './views/Booking/Booking';
 import SuccessBooking from './views/Booking/components/SuccessBooking';
 import ProtectedBookingRoute from './views/Auth/ProtectedBookingRoute';
-import ConfirmBooking from './views/Booking/confirmBooking';
+import ConfirmBooking from './views/Booking/ConfirmBooking';
 
 function App() {
   return (

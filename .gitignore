@@ -22,7 +22,7 @@ node_modules
 *.njsproj
 *.sln
 *.sw?
-#/dist
+/dist
 # Variables de entorno
 .env
 #Ignore files

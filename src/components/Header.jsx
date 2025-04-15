@@ -127,12 +127,12 @@ const Header = () => {
   }, []);
 
   return (
-    <section className="min-h-screen pt-[80px] bg-hero bg-no-repeat bg-cover bg-center">
-      <div className=" h-screen  relative z-30 mx-auto max-w-screen-2xl">
+    <section className="min-h-screen bg-hero bg-no-repeat bg-cover bg-center">
+      <div className=" h-screen relative z-30 mx-auto max-w-screen-2xl">
         <img
           src={Plane}
           alt="plane"
-          className="absolute top-1/2 -translate-y-1/2 left-1/2 transform -translate-x-1/2 -z-10 h-[300px]"
+          className="absolute top-1/2 -translate-y-1/2 left-1/2 transform -translate-x-1/2 -z-10 h-[300px] xl:h-[500px]"
         />
         <div className="h-full md:pt-3 lg:pt-0  md:px-10 lg:px-20 xl:px-10 flex flex-col items-center justify-center md:items-start gap-10 ">
           {/* Caja del título */}
@@ -164,9 +164,9 @@ const Header = () => {
           </div>
 
           {/* Contenedor con buscador, calendario y categorías */}
-          <div className="flex flex-col gap-5">
+          <div className="flex flex-col gap-5 px-2">
             {/* Buscador */}
-            <div className="bg-white md:w-full mx-auto md:mx-auto text-black/70 rounded-lg shadow-lg flex items-center p-2 px-3 min-h-[48px] hover:border-gray-400 hover:border-2">
+            <div className="bg-white w-full mx-auto  text-black/70 rounded-lg shadow-lg flex items-center p-2 px-3 min-h-[48px] hover:border-gray-400 hover:border-2">
               <IoSearch className="text-xl text-gray-700" />
               <input
                 type="text"

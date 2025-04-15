@@ -9,6 +9,7 @@ import { EventContext } from '../context/ProductContext';
 import { IoSearch } from 'react-icons/io5';
 import { FaRegCalendarAlt } from 'react-icons/fa';
 import Plane from '../assets/plane.png';
+import { getCategories } from '../services/categoryService';
 
 const Header = () => {
   const [categories, setCategories] = useState([]);
@@ -36,12 +37,15 @@ const Header = () => {
   };
 
   useEffect(() => {
-    fetch(`${apiUrl}/categorias`)
-      .then((response) => response.json())
-      .then((data) => {
-        setCategories(data);
-      })
-      .catch((error) => console.error('Error obteniendo categorías:', error));
+    const fecthApi = async () => {
+         try {
+           const data = await getCategories();
+           setCategories(data);
+         } catch (error) {
+           console.log('Ha ocurrido un error al intentar traer categorias', error);
+         } 
+        }
+        fecthApi()
   }, []);
 
   const [showCalendar, setShowCalendar] = useState(false);

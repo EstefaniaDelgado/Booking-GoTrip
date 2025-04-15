@@ -6,7 +6,7 @@ import SkeletonCard from './SkeletonCard';
 
 const RecomendadosHome = () => {
   const { events, fetchEvents, isLoading } = useContext(EventContext);
-  // console.log('eventos', events);
+  //console.log('eventos', events);
   const [startIndex, setStartIndex] = useState(0);
   const [eventsToDisplay, setEventsToDisplay] = useState([]);
   const itemsPerPage = 9;

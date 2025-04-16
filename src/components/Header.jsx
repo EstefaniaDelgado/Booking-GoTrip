@@ -127,7 +127,7 @@ const Header = () => {
   }, []);
 
   return (
-    <section className="min-h-screen md:pt-[72px] bg-hero bg-no-repeat bg-cover bg-center">
+    <section className="min-h-screen md:pt-[72px] md:pb-5 bg-hero bg-no-repeat bg-cover bg-center">
       <div className=" h-screen relative z-30 mx-auto max-w-screen-2xl">
         <img
           src={Plane}

@@ -44,7 +44,7 @@ Este repositorio contiene el **frontend**, desarrollado con React, JavaScript, T
 ## 🌐 Despliegue
 La aplicación está desplegada en:
 
-👉 https://go-trip-front.vercel.app
+👉 https://booking-go-trip.vercel.app/
 
 ---
 

@@ -6,6 +6,7 @@
   <img src="https://img.shields.io/badge/TypeScript-3178C6?style=flat-square&logo=typescript&logoColor=white" />
   <img src="https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=flat-square&logo=tailwind-css&logoColor=white" />
   <img src="https://img.shields.io/badge/Material_Tailwind-0284C7?style=flat-square&logo=tailwind-css&logoColor=white" />
+  <img src="https://img.shields.io/badge/Cloudinary-3448C5?style=flat-square&logo=cloudinary&logoColor=white" />
   <img src="https://img.shields.io/badge/Vite-646CFF?style=flat-square&logo=vite&logoColor=white" />
 </div>
 
@@ -25,6 +26,7 @@ Este repositorio contiene el **frontend**, desarrollado con React, JavaScript, T
 - ❤️ Guarda lugares y actividades en favoritos.
 - 📲 Diseño responsive para móvil y escritorio.
 - 🔐 Integración con backend para usuarios, reservas y autenticación.
+- 📷 Subida y almacenamiento de imágenes con Cloudinary
 - 🟢 Soporte al usuario a través de **WhatsApp**.
 
 ---
@@ -35,6 +37,7 @@ Este repositorio contiene el **frontend**, desarrollado con React, JavaScript, T
 - **Vite**
 - **Tailwind CSS**
 - **Material Tailwind**
+- **Cloudinary**
 - **React Router DOM**
 - **Axios**
 - **Vercel**

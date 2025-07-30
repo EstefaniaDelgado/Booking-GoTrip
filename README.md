@@ -22,7 +22,6 @@ Este repositorio contiene el **frontend**, desarrollado con React, JavaScript, T
 ## 🚀 Funcionalidades
 
 - ✈️ Explora destinos populares y actividades.
-- 🔍 Búsqueda avanzada por ubicación o tipo de experiencia.
 - ❤️ Guarda lugares y actividades en favoritos.
 - 📲 Diseño responsive para móvil y escritorio.
 - 🔐 Integración con backend para usuarios, reservas y autenticación.
@@ -38,6 +37,7 @@ Este repositorio contiene el **frontend**, desarrollado con React, JavaScript, T
 - **Material Tailwind**
 - **React Router DOM**
 - **Axios**
+- **Vercel**
 
 ---
 

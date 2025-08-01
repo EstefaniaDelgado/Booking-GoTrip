@@ -47,7 +47,9 @@ const Detail = () => {
 
   /* Funcionalidad de Reseñas */
   const [reviews, setReviews] = useState([]);
+  // console.log("reseñas", reviews)
   const [averageRating, setAverageRating] = useState(0);
+  
 
   /* Funcionalidad de Favoritos */
   const [favorites, setFavorites] = useState([]);
@@ -74,34 +76,31 @@ const Detail = () => {
     const fetchReviews = async () => {
       try {
         const reviewsData = await getReviews(id);
+        setAverageRating(reviewsData)
 
-        // Asegúrate de que reviewsData sea un array de reseñas
-        if (Array.isArray(reviewsData)) {
-          setReviews(reviewsData); // Directamente toma el array de reseñas
+        // // Asegúrate de que reviewsData sea un array de reseñas
+        // if (Array.isArray(reviewsData)) {
+        //   setReviews(reviewsData); // Directamente toma el array de reseñas
 
-          if (reviewsData.length > 0) {
-            const totalRating = reviewsData.reduce(
-              (sum, review) => sum + review.rating,
-              0
-            );
-            setAverageRating((totalRating / reviewsData.length).toFixed(1)); // Promedio con 1 decimal
-          } else {
-            setAverageRating(0); // Si no hay reseñas, promedio = 0
-          }
-        } else {
-          console.error(
-            'Se esperaba un array de reseñas, pero se recibió:',
-            reviewsData
-          );
-          setReviews([]); // Si no se recibe un array válido, establecemos 'reviews' como array vacío
-          setAverageRating(0); // Si hay un error, el promedio será 0
-        }
+        //   if (reviewsData.length > 0) {
+        //     const totalRating = reviewsData.reduce(
+        //       (sum, review) => sum + review.rating,
+        //       0
+        //     );
+        //     setAverageRating((totalRating / reviewsData.length).toFixed(1)); // Promedio con 1 decimal
+        //   } else {
+        //     setAverageRating(0); // Si no hay reseñas, promedio = 0
+        //   }
+        // } else {
+        //   console.error(
+        //     'Se esperaba un array de reseñas, pero se recibió:',
+        //     reviewsData
+        //   );
+        //   setReviews([]); // Si no se recibe un array válido, establecemos 'reviews' como array vacío
+        //   setAverageRating(0); // Si hay un error, el promedio será 0
+        // }
       } catch (error) {
         console.error('Error al obtener las reseñas:', error);
-
-        // Si ocurre un error, no usamos datos de respaldo
-        setReviews([]); // No mostramos reseñas
-        setAverageRating(0); // Promedio a 0 en caso de error
       }
     };
 

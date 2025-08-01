@@ -6,7 +6,7 @@ import SkeletonCard from './SkeletonCard';
 
 const RecomendadosHome = () => {
   const { events, fetchEvents, isLoading } = useContext(EventContext);
-  //console.log('eventos', events);
+  console.log('eventos', events);
   const [startIndex, setStartIndex] = useState(0);
   const [eventsToDisplay, setEventsToDisplay] = useState([]);
   const itemsPerPage = 9;
@@ -14,9 +14,12 @@ const RecomendadosHome = () => {
   //-------Funcionalidad de Favoritos--------
   const [favorites, setFavorites] = useState([]);
   const [isLoadingFavorites, setIsLoadingFavorites] = useState(true);
+  const [rating, setRating] = useState(0);
+  console.log("rating Home", rating)
 
   const storedUser = JSON.parse(localStorage.getItem('userGoTrip')) || {};
   const idUser = storedUser?.user?.id;
+  // const idEvent = events;
 
   useEffect(() => {
     fetchEvents();
@@ -38,6 +41,34 @@ const RecomendadosHome = () => {
       fecthApi();
     }
   }, [idUser]);
+
+  useEffect(() => {
+    const getReviews = async (id) => {
+      const apiUrl =
+        import.meta.env.VITE_API_URL_DEVELOPMENT ||
+        import.meta.env.VITE_API_URL_PRODUCTION;
+      try {
+        const response = await fetch(`${apiUrl}/ratings/average/${id}`, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        });
+
+        if (!response.ok) {
+          throw new Error('Error al obtener las reseñas');
+        }
+
+        const result = await response.json();
+        setRating(result);
+        return result; // Devuelve las reseñas de la respuesta
+      } catch (error) {
+        console.error('Error al obtener reseñas:', error);
+        throw error; // Lanza el error para que lo maneje el componente
+      }
+    };
+    getReviews();
+  }, []);
 
   useEffect(() => {
     if (events.length > 0 && eventsToDisplay.length === 0) {

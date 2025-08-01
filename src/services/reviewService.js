@@ -34,13 +34,13 @@ export const getReviews = async (id) => {
     import.meta.env.VITE_API_URL_DEVELOPMENT ||
     import.meta.env.VITE_API_URL_PRODUCTION;
   try {
-    const response = await fetch(`${apiUrl}/reviews/product/${id}`, {
+    const response = await fetch(`${apiUrl}/ratings/average/${id}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
       },
     });
-
+    
     if (!response.ok) {
       throw new Error("Error al obtener las reseñas");
     }
